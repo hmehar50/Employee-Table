@@ -8,6 +8,7 @@
   },
   "private": true,
   "dependencies": {
+    "express.js": "^1.0.0",
     "mongoose": "^9.6.2"
   }
 }
