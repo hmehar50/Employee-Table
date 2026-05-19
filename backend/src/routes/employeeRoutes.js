@@ -1,6 +1,5 @@
 import express from 'express';
-import {get} from "mongoose";
-import * as employeeController from "../controllers/employeeController";
+import * as employeeController from "../controllers/employeeController.js";
 
 
 const router = express.Router();

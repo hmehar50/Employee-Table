@@ -1,0 +1,1 @@
+[2026-05-19T12:45:06.989Z] ERROR: Error connecting to MongoDB server : The `uri` parameter to `openUri()` must be a string, got "undefined". Make sure the first parameter to `mongoose.connect()` or `mongoose.createConnection()` is a string.

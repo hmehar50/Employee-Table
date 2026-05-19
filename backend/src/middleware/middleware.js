@@ -7,7 +7,7 @@ export const handleError = (err, req, res, next) => {
     res.status(status).json({
         success: false,
         message ,
-        ...(PROCESS.env.NODE_ENV === 'development' && {error : err}),
+        ...(process.env.NODE_ENV === 'development' && {error : err}),
     });
 };
 
