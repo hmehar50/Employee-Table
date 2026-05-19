@@ -1,6 +1,7 @@
 import Employee from "../models/Employee";
 import logger from "../config/logger";
 import employee from "../models/Employee";
+import Promise from "mongoose";
 
 export const getEmployees = async (req, res) => {
     try{
@@ -16,24 +17,35 @@ export const getEmployees = async (req, res) => {
 
         const skip = (pageNo - 1) * lim;
         const filter = {
-            if(search){
+            async if(search) {
                 filter.$or = [
 
-                    {employeeId : {$regex: search}, {$options: "i"}},
-                {email : {$regex: search}, {$options: "i"}},
+                    {employeeId: {$regex: search}, {$options: "i"}
+            },
+                {
+                    email : {
+                        $regex: search
+                    }
+                ,
+                    {
+                        $options: "i"
+                    }
+                }
+            ,
 
-                ];
+            ]
+                ;
 
-                if(department){
+                if (department) {
                     filter.department = department;
                 }
 
-                if(hireDate){
+                if (hireDate) {
                     filter.hireDate = hireDate;
                 }
 
-                const [employee , total] = await Promise.all([
-                    Employee.find(filter).sort({[sortBy] : sortOrder === 'asc'?1:-1}).skip(skip).limit(lim).lean() ,
+                const [employee, total] = await Promise.all([
+                    Employee.find(filter).sort({[sortBy]: sortOrder === 'asc' ? 1 : -1}).skip(skip).limit(lim).lean(),
                     Employee.countDocuments(filter),
                 ]);
 
@@ -160,9 +172,33 @@ export const deleteEmployee = async (req, res) => {
 }
 
 export const bulkDelete = async (req, res) => {
+    try{
+        const {ids} = req.params;
+        if(!Array.isArray(ids) || ids.length === 0){
+            return res.status(404).json({
+                success: false,
+                message: 'invalid ids',
+            });
+        }
 
-}
+        const result = await Employee.deleteMany({_id : {$in : ids}});
+        logger.info(`Employee deleted successfully! : ${result.deletedCount}`);
+        return res.status(200).json({
+            success: true,
+            data: result,
+            message: 'Employee deleted successfully!',
+        })
+    }catch (error){
+        logger.error(error.message);
+        res.status(500).json({
+            success: false,
+            message: 'Something went wrong',
 
-export const exportEmployee = async (req, res) => {
+        });
+    }
+};
 
-}
+//"test": "jest --detectOpenHandles"
+
+
+

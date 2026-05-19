@@ -17,6 +17,6 @@ router.delete('/:id' , employeeController.deleteEmployee);
 
 router.post('/bulkDelete' , employeeController.bulkDelete);
 
-router.post('/export/csv' , employeeController.exportEmployee);
+//router.post('/export/csv' , employeeController.exportEmployee);
 
 export default router;
