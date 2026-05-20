@@ -42,7 +42,7 @@ class ApiService {
             },
         });
 
-        // Response interceptor for error handling
+
         this.axiosInstance.interceptors.response.use(
             (response) => response,
             (error: AxiosError) => {
@@ -53,37 +53,37 @@ class ApiService {
         );
     }
 
-    // Get all employees
+
     async getEmployees(filters: EmployeeFilters = {}) {
         const response = await this.axiosInstance.get('/employees', { params: filters });
         return response.data;
     }
 
-    // Get single employee
+
     async getEmployee(id: string) {
         const response = await this.axiosInstance.get(`/employees/${id}`);
         return response.data;
     }
 
-    // Create employee
+
     async createEmployee(data: EmployeeData) {
         const response = await this.axiosInstance.post('/employees', data);
         return response.data;
     }
 
-    // Update employee
+
     async updateEmployee(id: string, data: Partial<EmployeeData>) {
         const response = await this.axiosInstance.put(`/employees/${id}`, data);
         return response.data;
     }
 
-    // Delete employee
+
     async deleteEmployee(id: string) {
         const response = await this.axiosInstance.delete(`/employees/${id}`);
         return response.data;
     }
 
-    // Bulk delete employees
+
     async bulkDeleteEmployees(ids: string[]) {
         const response = await this.axiosInstance.post('/employees/bulk-delete', { ids });
         return response.data;

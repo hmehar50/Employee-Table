@@ -227,7 +227,7 @@ function App() {
     }
   };
 
-  const handleExport = async () => {
+  /*const handleExport = async () => {
     try {
       const blob = await api.exportEmployees();
       const url = window.URL.createObjectURL(blob);
@@ -241,7 +241,7 @@ function App() {
     } catch (error) {
       toast.error('Failed to export employees');
     }
-  };
+  };*/
 
   return (
       <div className="min-h-screen bg-gray-50">
@@ -325,12 +325,7 @@ function App() {
                     >
                       <FiPlus /> Add Employee
                     </button>
-                    <button
-                        onClick={handleExport}
-                        className="flex items-center gap-2 px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700"
-                    >
-                      <FiDownload /> Export CSV
-                    </button>
+
                     {selectedEmployees.size > 0 && (
                         <button
                             onClick={handleBulkDelete}
